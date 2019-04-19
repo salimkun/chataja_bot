@@ -5,7 +5,7 @@ class ChatControllerController < ApplicationController
 
     access_token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0Njk1NSwidGltZXN0YW1wIjoiMjAxOS0wNC0xOSAxNzowOTo0NiArMDAwMCJ9.J4z039nhHfvnRbzwPDebrPTf3nAsqX7GdpMZvgq9zUo'
     apiurl = 'https://qisme.qiscus.com/api/v1/chat/conversations/'
-    headers = headers:{ 
+    headers = { 
         'Content-Type' => 'application/json',
         'Content-Type' => 'multipart/form-data' 
     }
@@ -46,15 +46,23 @@ class ChatControllerController < ApplicationController
                 }
             ]
         }
-        replay = parameters:{ 
-            'access_token' => self.access_token
-            'topic_id' => room_id
+        replay = { 
+            'access_token' => self.access_token,
+            'topic_id' => room_id,
             'payload' => payload 
         }
-        post_comment = Unirest.post self.apiurl, self.headers, replay
+        post_comment = Unirest.post self.apiurl, headers:self.headers, parameters:replay
+        post_comment.raw_body
     end    
     
     def run
         self.getResponse
+        chat = Chat.new(
+            self.qismeResponse['chat_room']['qiscus_room_id'],
+            self.qismeResponse['message']['text'],
+            self.qismeResponse['message']['type'],
+            self.qismeResponse['from']['fullname']
+        )
+        self.replyCommandButton(chat.sender,chat.room_id)
     end    
 end
