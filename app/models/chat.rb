@@ -1,5 +1,5 @@
 class Chat < ApplicationRecord
-    attr_read :room_id, :message, :message_type, :sender
+    attr_reader :room_id, :message, :message_type, :sender
 
     def initialize(room_id, message, message_type, sender)
         @room_id = room_id
