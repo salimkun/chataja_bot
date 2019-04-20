@@ -1,4 +1,4 @@
-# Kiwari Bot Webhook Sample with PHP
+# Kiwari Bot Webhook Sample with Ruby
 
 ## Requirements
 
