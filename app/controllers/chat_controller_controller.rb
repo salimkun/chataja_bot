@@ -34,7 +34,7 @@ class ChatControllerController < ApplicationController
                     'type' => 'postback',
                     'payload' => [
                         'url' => '#',
-                        "method" => 'get',
+                        'method' => 'get',
                         'payload' => 'null'
                     ]
                 },
@@ -53,7 +53,7 @@ class ChatControllerController < ApplicationController
             'type' => 'buttons',
             'payload' => payload.to_json
         }
-        post_comment = Unirest.post(self.apiurl+"post_comment", headers: self.headers, parameters: replay)
+        post_comment = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay)
         render :json => post_comment.raw_body
     end
     
@@ -68,10 +68,148 @@ class ChatControllerController < ApplicationController
             'type' => 'text',
             'comment' => comment
         }
-        post_comment = Unirest.post(self.apiurl+"post_comment", headers: self.headers, parameters: replay)
+        post_comment = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay)
         render :json => post_comment.raw_body
     end
+
+    #contoh penggunaan api post-comment untuk jenis location
+    def replyCommandLocation(room_id)
+        payload = {
+            'name' => 'Telkom Landmark Tower',
+            'address' => 'Jalan Jenderal Gatot Subroto No.Kav. 52, West Kuningan, Mampang Prapatan, South Jakarta City, Jakarta 12710',
+            'latitude' => '-6.2303817',
+            'longitude' => '106.8159363',
+            'map_url' => 'https://www.google.com/maps/@-6.2303817,106.8159363,17z'
+        }
+        replay = {
+            'access_token' => self.access_token,
+            'topic_id' => room_id,
+            'type' => 'location',
+            'payload' => payload.to_json
+        }
+        location  = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay);
+        render :json => location.raw_body
+    end
     
+    #contoh penggunaan api post-comment untuk jenis carousel
+    def replyCommandCarousel(room_id)
+        payload = {
+            'cards' => [
+                {
+                    'image' => 'https://cdns.img.com/a.jpg',
+                    'title' => 'Gambar 1',
+                    'description' => 'Carousel Double Button',
+                    'default_action' => {
+                        'type' => 'postback',
+                        'postback_text' => 'Load More...',
+                        'payload' => {
+                            'url' => 'https://j.id',
+                            'method' => 'GET',
+                            'payload'=> null
+                        }
+                    },
+                    'buttons' => [
+                        {
+                            'label' => 'Button 1',
+                            'type' => 'postback',
+                            'postback_text' => 'Load More...',
+                            'payload' => {
+                                'url' => 'https://www.r.com',
+                                'method' => 'GET',
+                                'payload' => null
+                            }
+                        },
+                        {
+                            'label' => 'Button 2',
+                            'type' => 'postback',
+                            'postback_text' => 'Load More...',
+                            'payload' => {
+                                'url' => 'https://www.r.com',
+                                'method' => 'GET',
+                                'payload' => null
+                            }
+                        }
+                    ]
+                },
+                {
+                    'image' => 'https://res.cloudinary.com/hgk8.jpg',
+                    'title' => 'Gambar 2',
+                    'description' => 'Carousel single button',
+                    'default_action' => {
+                        'type' => 'postback',
+                        'postback_text' => 'Load More...',
+                        'payload' => {
+                            'url' => 'https://j.id',
+                            'method' => 'GET',
+                            'payload'=> null
+                        }
+                    },
+                    'buttons' => [
+                        {
+                            'label' => 'Button 1',
+                            'type' => 'postback',
+                            'postback_text' => 'Load More...',
+                            'payload' => {
+                                'url' => 'https://www.r.com',
+                                'method' => 'GET',
+                                'payload' => null
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        replay = {
+            'access_token' => self.access_token,
+            'topic_id' => room_id,
+            'type' => 'carousel',
+            'payload' => payload.to_json
+        }
+        carousel  = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay);
+        render :json => carousel.raw_body
+    end
+
+    #contoh penggunaan api post-comment untuk jenis card
+    def replyCommandCard(room_id)
+        $payload = {
+            'text' => 'Special deal buat sista nih..',
+            'image' => 'https://cdns.img.com/a.jpg',
+            'title' => 'Gambar 1',
+            'description' => 'Card Double Button',
+            'url' => 'http://url.com/baju?id=123%26track_from_chat_room=123',
+            'buttons' => [
+                {
+                    'label' => 'Button 1',
+                    'type' => 'postback',
+                    'postback_text' => 'Load More...',
+                    'payload' => {
+                        'url' => 'https://www.r.com',
+                        'method' => 'GET',
+                        'payload' => null
+                    }
+                },
+                {
+                    'label' => 'Button 2',
+                    'type' => 'postback',
+                    'postback_text' => 'Load More...',
+                    'payload' => {
+                        'url' => 'https://www.r.com',
+                        'method' => 'GET',
+                        'payload' => null
+                    }
+                }
+            ]
+        }
+        replay = {
+            'access_token' => self.access_token,
+            'topic_id' => room_id,
+            'type' => 'card',
+            'payload' => payload.to_json
+        }
+        card  = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay);
+        card.raw_body
+    end
+
     def run
         self.getResponse
         chat = Chat.new(

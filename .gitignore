@@ -24,5 +24,7 @@
 .byebug_history
 log-comment.txt
 
+Gemfile.lock
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
