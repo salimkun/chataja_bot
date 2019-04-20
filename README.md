@@ -1,24 +1,39 @@
-# README
+# Kiwari Bot Webhook Sample with PHP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+* [Ruby](https://www.ruby-lang.org/en/)
+* [Ruby on Rails](https://rubyonrails.org/)
+* [Bundler](https://bundler.io/bundle_install.html)
+* [ngrok](https://ngrok.com/)
+* [Kiwari Access Token](https://qisme.qiscus.com/app/kiwari-prod)
 
-* Ruby version
+## How to run
 
-* System dependencies
+* Clone this repository and install dependencies `Gemfile`
 
-* Configuration
+```bash
+$ git clone https://gitlab.playcourt.id/iskandarsuhaimi/webhook-kiwaribot-sample-ruby.git
+$ cd webhook-kiwaribot-sample-ruby
+$ bundle install
+```
 
-* Database creation
+* Login to [Kiwari User Dashboard](https://qisme.qiscus.com/app/kiwari-prod)
+* Create Access Token
+* Copy and Paste to `chat_controller.rb` class
 
-* Database initialization
+* Run webhook server
 
-* How to run the test suite
+```bash
+$ rails server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+* Tunneling your webhook server
 
-* Deployment instructions
+```bash
+$ ngrok http 3000
+```
 
-* ...
+* Register your webhook url by copy your ngrok https url from CLI at [Kiwari User Dashboard Profile](https://qisme.qiscus.com/app/kiwari-prod)
+
+* Enjoy!
