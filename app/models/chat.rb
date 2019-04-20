@@ -1,4 +1,5 @@
-class Chat < ApplicationRecord
+class Chat 
+    include ActiveModel::Model
     attr_reader :room_id, :message, :message_type, :sender
 
     def initialize(room_id, message, message_type, sender)
