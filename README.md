@@ -25,6 +25,7 @@ $ bundle install
 * Run webhook server
 
 ```bash
+$ rake db:create db:migrate
 $ rails server
 ```
 
