@@ -65,7 +65,7 @@ class ChatControllerController < ApplicationController
     #contoh penggunaan api post-comment untuk jenis text
     def replyCommandText(display_name, message_type, room_id)
         comment = 
-        'Maaf '+display_name+', command yang kamu ketik salah. Jenis pesan kamu adalah '+message_type+'. Silahkan coba command berikut :\n'+
+        'Maaf '+display_name+', command yang kamu ketik salah. Jenis pesan kamu adalah '+message_type+'. Silahkan coba command berikut : '+
         '/location, /button, /card, /carousel'
 
         replay = {
@@ -111,7 +111,7 @@ class ChatControllerController < ApplicationController
                         'payload' => {
                             'url' => 'https://j.id',
                             'method' => 'GET',
-                            'payload'=> null
+                            'payload'=> nil
                         }
                     },
                     'buttons' => [
@@ -122,7 +122,7 @@ class ChatControllerController < ApplicationController
                             'payload' => {
                                 'url' => 'https://www.r.com',
                                 'method' => 'GET',
-                                'payload' => null
+                                'payload' => nil
                             }
                         },
                         {
@@ -132,7 +132,7 @@ class ChatControllerController < ApplicationController
                             'payload' => {
                                 'url' => 'https://www.r.com',
                                 'method' => 'GET',
-                                'payload' => null
+                                'payload' => nil
                             }
                         }
                     ]
@@ -147,7 +147,7 @@ class ChatControllerController < ApplicationController
                         'payload' => {
                             'url' => 'https://j.id',
                             'method' => 'GET',
-                            'payload'=> null
+                            'payload'=> nil
                         }
                     },
                     'buttons' => [
@@ -158,7 +158,7 @@ class ChatControllerController < ApplicationController
                             'payload' => {
                                 'url' => 'https://www.r.com',
                                 'method' => 'GET',
-                                'payload' => null
+                                'payload' => nil
                             }
                         }
                     ]
@@ -171,13 +171,13 @@ class ChatControllerController < ApplicationController
             'type' => 'carousel',
             'payload' => payload.to_json
         }
-        carousel  = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay);
+        carousel = Unirest.post(self.apiurl+'post_comment', headers: self.headers, parameters: replay);
         render :json => carousel.raw_body
     end
 
     #contoh penggunaan api post-comment untuk jenis card
     def replyCommandCard(room_id)
-        $payload = {
+        payload = {
             'text' => 'Special deal buat sista nih..',
             'image' => 'https://cdns.img.com/a.jpg',
             'title' => 'Gambar 1',
@@ -191,7 +191,7 @@ class ChatControllerController < ApplicationController
                     'payload' => {
                         'url' => 'https://www.r.com',
                         'method' => 'GET',
-                        'payload' => null
+                        'payload' => nil
                     }
                 },
                 {
@@ -201,7 +201,7 @@ class ChatControllerController < ApplicationController
                     'payload' => {
                         'url' => 'https://www.r.com',
                         'method' => 'GET',
-                        'payload' => null
+                        'payload' => nil
                     }
                 }
             ]
@@ -237,11 +237,11 @@ class ChatControllerController < ApplicationController
                     case command[1]
                         when 'location'
                             self.replyCommandLocation(chat.room_id)
-                        when 'carousel':
+                        when 'carousel'
                             self.replyCommandCarousel(chat.room_id)
-                        when 'button':
+                        when 'button'
                             self.replyCommandButton(chat.sender, chat.room_id)
-                        when 'card':
+                        when 'card'
                             self.replyCommandCard(chat.room_id)
                         else
                             self.replyCommandText(chat.sender, chat.message_type, chat.room_id)            
