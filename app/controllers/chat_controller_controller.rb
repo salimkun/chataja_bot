@@ -1,4 +1,4 @@
-require 'unirest'
+require 'unirest' #panggil depedensi unirest
 
 class ChatControllerController < ApplicationController
     skip_before_action :verify_authenticity_token #skip verify token rails
