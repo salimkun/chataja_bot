@@ -225,30 +225,27 @@ class ChatControllerController < ApplicationController
             self.qismeResponse['message']['type'],
             self.qismeResponse['from']['fullname']
         )
-
-        #cek pesan dari chat tidak kosong
-        if chat.message != nil
-            #cari chat yang mengandung '/' untuk menjalankan command bot
-            find_slash = chat.message.scan('/')
-            if find_slash[0] == '/'
-                #ambil nilai text setelah karakter '/'
-                command = chat.message.split('/')
-                if command[1] != nil
-                    case command[1]
-                        when 'location'
-                            self.replyCommandLocation(chat.room_id)
-                        when 'carousel'
-                            self.replyCommandCarousel(chat.room_id)
-                        when 'button'
-                            self.replyCommandButton(chat.sender, chat.room_id)
-                        when 'card'
-                            self.replyCommandCard(chat.room_id)
-                        else
-                            self.replyCommandText(chat.sender, chat.message_type, chat.room_id)            
-                    end
-                else
-                    self.replyCommandText(chat.sender, chat.message_type, chat.room_id)
+        
+        #cek pesan dari chat tidak kosong & cari chat yang mengandung '/' untuk menjalankan command bot
+        find_slash = chat.message.scan('/')
+        if chat.message != nil && find_slash[0] == '/'
+            #ambil nilai text setelah karakter '/'
+            command = chat.message.split('/')
+            if command[1] != nil
+                case command[1]
+                    when 'location'
+                        self.replyCommandLocation(chat.room_id)
+                    when 'carousel'
+                        self.replyCommandCarousel(chat.room_id)
+                    when 'button'
+                        self.replyCommandButton(chat.sender, chat.room_id)
+                    when 'card'
+                        self.replyCommandCard(chat.room_id)
+                    else
+                        self.replyCommandText(chat.sender, chat.message_type, chat.room_id)            
                 end
+            else
+                self.replyCommandText(chat.sender, chat.message_type, chat.room_id)
             end
         end
     end    
