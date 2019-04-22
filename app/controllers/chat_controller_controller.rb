@@ -6,7 +6,7 @@ class ChatControllerController < ApplicationController
 
     #inisiasi nilai atribut
     def initialize()
-        @access_token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0Njk1NSwidGltZXN0YW1wIjoiMjAxOS0wNC0wNSAwNjoxMjo0MSArMDAwMCJ9.u5PHjfNPrRL_nhh5S-UUSNLBr2kKBlBI89px2L2jjdg'
+        @access_token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1MDg3NywidGltZXN0YW1wIjoiMjAxOS0wNC0yMiAwNTo0NTo0NCArMDAwMCJ9.wO-bDVfac2-Vc-Xey5wFzuvUKHdYVZlrKjIvrAPY8Kc'
         @apiurl = 'https://qisme.qiscus.com/api/v1/chat/conversations/'
         @headers = { 
             'Content-Type' => 'application/json'
