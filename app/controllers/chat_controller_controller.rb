@@ -2,12 +2,12 @@ require 'unirest' #panggil depedensi unirest
 
 class ChatControllerController < ApplicationController
     skip_before_action :verify_authenticity_token #skip verify token rails
-    attr_accessor :qismeResponse, :access_token, :apiurl, :headers #set-get atribut controller
+    attr_accessor :apiResponse, :access_token, :apiurl, :headers #set-get atribut controller
 
     #inisiasi nilai atribut
     def initialize()
         @access_token = '<input akses token disini>'
-        @apiurl = 'https://qisme.qiscus.com/api/v1/chat/conversations/'
+        @apiurl = 'https://api.kiwari.chat/api/v1/chat/conversations/'
         @headers = { 
             'Content-Type' => 'application/json'
         }
@@ -16,15 +16,15 @@ class ChatControllerController < ApplicationController
     #ambil dan tampung response data dari webhook
     def getResponse
         if request.headers['Content-Type'] == 'application/json'
-            self.qismeResponse = JSON.parse(request.body.read)
+            self.apiResponse = JSON.parse(request.body.read)
         else
             #application/x-www-form-urlencoded
-            self.qismeResponse = params.as_json
+            self.apiResponse = params.as_json
         end
 
         #siapkan log untuk memastikan data terambil
         File.open('log-comment.txt','w') do |f|
-            f.write(JSON.pretty_generate(self.qismeResponse))
+            f.write(JSON.pretty_generate(self.apiResponse))
         end    
     end
 
@@ -35,8 +35,9 @@ class ChatControllerController < ApplicationController
             'text' => comment,
             'buttons' => [
                 {
-                    'label' => 'Tombol Reply Text',
+                    'label' => 'Hitam',
                     'type' => 'postback',
+                    'postback_text' => 'Putih'
                     'payload' => [
                         'url' => '#',
                         'method' => 'get',
@@ -47,7 +48,7 @@ class ChatControllerController < ApplicationController
                     'label' => 'Tombol Link',
                     'type' => 'link',
                     'payload' => [
-                        'url' => 'https://www.google.com',
+                        'url' => 'https://www.kiwari.chat',
                     ]
                 }
             ]
@@ -109,7 +110,7 @@ class ChatControllerController < ApplicationController
                         'type' => 'postback',
                         'postback_text' => 'Load More...',
                         'payload' => {
-                            'url' => 'https://j.id',
+                            'url' => '#',
                             'method' => 'GET',
                             'payload'=> nil
                         }
@@ -120,7 +121,7 @@ class ChatControllerController < ApplicationController
                             'type' => 'postback',
                             'postback_text' => 'Load More...',
                             'payload' => {
-                                'url' => 'https://www.r.com',
+                                'url' => '#',
                                 'method' => 'GET',
                                 'payload' => nil
                             }
@@ -130,7 +131,7 @@ class ChatControllerController < ApplicationController
                             'type' => 'postback',
                             'postback_text' => 'Load More...',
                             'payload' => {
-                                'url' => 'https://www.r.com',
+                                'url' => '#',
                                 'method' => 'GET',
                                 'payload' => nil
                             }
@@ -145,7 +146,7 @@ class ChatControllerController < ApplicationController
                         'type' => 'postback',
                         'postback_text' => 'Load More...',
                         'payload' => {
-                            'url' => 'https://j.id',
+                            'url' => '#',
                             'method' => 'GET',
                             'payload'=> nil
                         }
@@ -156,7 +157,7 @@ class ChatControllerController < ApplicationController
                             'type' => 'postback',
                             'postback_text' => 'Load More...',
                             'payload' => {
-                                'url' => 'https://www.r.com',
+                                'url' => '#',
                                 'method' => 'GET',
                                 'payload' => nil
                             }
@@ -189,7 +190,7 @@ class ChatControllerController < ApplicationController
                     'type' => 'postback',
                     'postback_text' => 'Load More...',
                     'payload' => {
-                        'url' => 'https://www.r.com',
+                        'url' => '#',
                         'method' => 'GET',
                         'payload' => nil
                     }
@@ -199,7 +200,7 @@ class ChatControllerController < ApplicationController
                     'type' => 'postback',
                     'postback_text' => 'Load More...',
                     'payload' => {
-                        'url' => 'https://www.r.com',
+                        'url' => '#',
                         'method' => 'GET',
                         'payload' => nil
                     }
@@ -220,10 +221,10 @@ class ChatControllerController < ApplicationController
     def run
         self.getResponse 
         chat = Chat.new(
-            self.qismeResponse['chat_room']['qiscus_room_id'],
-            self.qismeResponse['message']['text'],
-            self.qismeResponse['message']['type'],
-            self.qismeResponse['from']['fullname']
+            self.apiResponse['chat_room']['qiscus_room_id'],
+            self.apiResponse['message']['text'],
+            self.apiResponse['message']['type'],
+            self.apiResponse['from']['fullname']
         )
         
         #cek pesan dari chat tidak kosong & cari chat yang mengandung '/' untuk menjalankan command bot
