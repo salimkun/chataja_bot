@@ -6,7 +6,7 @@
 * [Ruby on Rails](https://rubyonrails.org/)
 * [Bundler](https://bundler.io/bundle_install.html)
 * [ngrok](https://ngrok.com/)
-* Kiwari Access Token (you can chat with Abah Bot in `Discover` menu)
+* Bot Access Token (you can chat with Chatbot Builder in `Jelajah` menu)
 
 ## How to run
 
@@ -18,8 +18,8 @@ $ cd webhook-kiwaribot-sample-ruby
 $ bundle install
 ```
 
-* Go to `Discover` menu
-* chat with `Abah Bot`
+* Go to `Jelajah` menu
+* chat with `Chatbot Builder`
 * Create bot and get `access_token`
 * Copy and Paste to `chat_controller.rb` class
 
@@ -36,5 +36,5 @@ $ rails server
 $ ngrok http 3000
 ```
 
-* Register your webhook url by copy your ngrok https url from CLI, then input it to `Abah Bot`
+* Register your webhook url by copy your ngrok https url from CLI, then input it to `Chatbot Builder`
 * Enjoy!
