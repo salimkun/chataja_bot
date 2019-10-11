@@ -50,6 +50,16 @@ class ChatControllerController < ApplicationController
                     'payload' => [
                         'url' => 'https://www.kiwari.chat',
                     ]
+                },
+                {
+                    'label' => 'asdasd askjdhaskd klhjasdasd kasjhdas asdasdasdsdasdasadas',
+                    'type' => 'postback',
+                    'postback_text' => 'Putih',
+                    'payload' => [
+                        'url' => '#',
+                        'method' => 'get',
+                        'payload' => 'null'
+                    ]
                 }
             ]
         }
