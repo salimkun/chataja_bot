@@ -37,7 +37,7 @@ class ChatControllerController < ApplicationController
                 {
                     'label' => 'Hitam',
                     'type' => 'postback',
-                    'postback_text' => 'Putih'
+                    'postback_text' => 'Putih',
                     'payload' => [
                         'url' => '#',
                         'method' => 'get',
