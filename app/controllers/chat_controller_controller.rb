@@ -6,8 +6,8 @@ class ChatControllerController < ApplicationController
 
     #inisiasi nilai atribut
     def initialize()
-        @access_token = '<input akses token disini>'
-        @apiurl = 'https://api.kiwari.chat/api/v1/chat/conversations/'
+        @access_token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4NDU4MCwidGltZXN0YW1wIjoiMjAxOS0xMC0xMSAxMDozMjo1MyArMDcwMCJ9.d39VuBN75cy3wo69ct4XNq0SFos6u5qrCxOPJ-0ksCw'
+        @apiurl = 'https://api.chataja.co.id/api/v1/chat/conversations/'
         @headers = { 
             'Content-Type' => 'application/json'
         }
@@ -117,7 +117,7 @@ class ChatControllerController < ApplicationController
                     },
                     'buttons' => [
                         {
-                            'label' => 'Button 1',
+                            'label' => 'asdkajshdas alkshjdlaksdlas lkasdasdas aslkjdas',
                             'type' => 'postback',
                             'postback_text' => 'Load More...',
                             'payload' => {
