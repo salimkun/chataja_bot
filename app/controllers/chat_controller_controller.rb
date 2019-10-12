@@ -7,7 +7,7 @@ class ChatControllerController < ApplicationController
     #inisiasi nilai atribut
     def initialize()
         @access_token = '<input akses token disini>'
-        @apiurl = 'https://api.kiwari.chat/api/v1/chat/conversations/'
+        @apiurl = 'https://api.chataja.co.id/api/v1/chat/conversations/'
         @headers = { 
             'Content-Type' => 'application/json'
         }
@@ -49,6 +49,7 @@ class ChatControllerController < ApplicationController
                     'type' => 'link',
                     'payload' => [
                         'url' => 'https://www.kiwari.chat',
+                        'method' => 'get'
                     ]
                 }
             ]
