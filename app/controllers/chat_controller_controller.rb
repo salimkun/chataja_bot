@@ -48,7 +48,7 @@ class ChatControllerController < ApplicationController
                     'label' => 'Tombol Link',
                     'type' => 'link',
                     'payload' => [
-                        'url' => 'https://www.kiwari.chat',
+                        'url' => 'https://www.chataja.co.id',
                         'method' => 'get'
                     ]
                 }
